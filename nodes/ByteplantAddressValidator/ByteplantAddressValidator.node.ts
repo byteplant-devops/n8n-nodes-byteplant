@@ -1,11 +1,11 @@
-import type {
+import {
 	IExecuteFunctions,
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	IRequestOptions,
+	IHttpRequestOptions,
 } from 'n8n-workflow';
-import { ApplicationError, NodeConnectionType, NodeOperationError } from 'n8n-workflow';
+import { ApplicationError, NodeConnectionType, NodeOperationError, NodeApiError } from 'n8n-workflow';
 import { commonFields } from '../../utils/common-fields';
 
 export class ByteplantAddressValidator implements INodeType {
@@ -19,6 +19,7 @@ export class ByteplantAddressValidator implements INodeType {
 		},
 		version: 1,
 		description: 'Byteplant Address Validator',
+		subtitle: 'Validate Address',
 		defaults: {
 			name: 'Byteplant Address Validator',
 		},
@@ -151,7 +152,7 @@ export class ByteplantAddressValidator implements INodeType {
 
 			if (operation === 'validateAddress') {
 				try {
-					const options: IRequestOptions = {
+					const options: IHttpRequestOptions = {
 						method: 'GET',
 						baseURL: 'https://api.address-validator.net',
 						url: '/api/verify',
@@ -176,7 +177,7 @@ export class ByteplantAddressValidator implements INodeType {
 					};
 
 					const { ratelimit_remain, ratelimit_seconds, status, ...rest } =
-						await this.helpers.requestWithAuthentication.call(
+						await this.helpers.httpRequestWithAuthentication.call(
 							this,
 							'byteplantAddressValidatorApi',
 							options,
@@ -198,7 +199,7 @@ export class ByteplantAddressValidator implements INodeType {
 					} else {
 						if (error.context) {
 							error.context.itemIndex = itemIndex;
-							throw error;
+							throw new NodeApiError(this.getNode(), error, { itemIndex });
 						}
 						throw new NodeOperationError(this.getNode(), error, {
 							itemIndex,

@@ -3,9 +3,9 @@ import type {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	IRequestOptions,
+	IHttpRequestOptions,
 } from 'n8n-workflow';
-import { ApplicationError, NodeConnectionType, NodeOperationError } from 'n8n-workflow';
+import { ApplicationError, NodeConnectionType, NodeOperationError, NodeApiError } from 'n8n-workflow';
 import { commonFields } from '../../utils/common-fields';
 
 export class ByteplantPhoneValidator implements INodeType {
@@ -19,6 +19,7 @@ export class ByteplantPhoneValidator implements INodeType {
 		},
 		version: 1,
 		description: 'Byteplant Phone Validator',
+		subtitle: 'Validate Phone Number',
 		defaults: {
 			name: 'Byteplant Phone Validator',
 		},
@@ -100,7 +101,7 @@ export class ByteplantPhoneValidator implements INodeType {
 			const operation = this.getNodeParameter('operation', itemIndex);
 			if (operation === 'validatePhoneNumber') {
 				try {
-					const options: IRequestOptions = {
+					const options: IHttpRequestOptions = {
 						method: 'GET',
 						baseURL: 'https://api.phone-validator.net',
 						url: '/api/v2/verify',
@@ -115,7 +116,7 @@ export class ByteplantPhoneValidator implements INodeType {
 					};
 
 					const { ratelimit_remain, ratelimit_seconds, status, ...rest } =
-						await this.helpers.requestWithAuthentication.call(
+						await this.helpers.httpRequestWithAuthentication.call(
 							this,
 							'byteplantPhoneValidatorApi',
 							options,
@@ -137,7 +138,7 @@ export class ByteplantPhoneValidator implements INodeType {
 					} else {
 						if (error.context) {
 							error.context.itemIndex = itemIndex;
-							throw error;
+							throw new NodeApiError(this.getNode(), error, { itemIndex });
 						}
 						throw new NodeOperationError(this.getNode(), error, {
 							itemIndex,

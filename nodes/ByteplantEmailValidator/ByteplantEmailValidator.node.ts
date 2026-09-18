@@ -3,9 +3,9 @@ import type {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	IRequestOptions,
+	IHttpRequestOptions,
 } from 'n8n-workflow';
-import { ApplicationError, NodeConnectionType, NodeOperationError } from 'n8n-workflow';
+import { ApplicationError, NodeConnectionType, NodeOperationError, NodeApiError } from 'n8n-workflow';
 import { statusCodes } from './status-codes';
 import { commonFields } from '../../utils/common-fields';
 
@@ -20,6 +20,7 @@ export class ByteplantEmailValidator implements INodeType {
 		},
 		version: 1,
 		description: 'Byteplant Email Validator',
+		subtitle: 'Validate Email',
 		defaults: {
 			name: 'Byteplant Email Validator',
 		},
@@ -69,7 +70,7 @@ export class ByteplantEmailValidator implements INodeType {
 			const operation = this.getNodeParameter('operation', itemIndex);
 			if (operation === 'validateEmail') {
 				try {
-					const options: IRequestOptions = {
+					const options: IHttpRequestOptions = {
 						method: 'GET',
 						baseURL: 'https://api.email-validator.net',
 						url: '/api/verify',
@@ -81,7 +82,7 @@ export class ByteplantEmailValidator implements INodeType {
 					};
 
 					const { status, info, details, freemail } =
-						await this.helpers.requestWithAuthentication.call(
+						await this.helpers.httpRequestWithAuthentication.call(
 							this,
 							'byteplantEmailValidatorApi',
 							options,
@@ -111,7 +112,7 @@ export class ByteplantEmailValidator implements INodeType {
 					} else {
 						if (error.context) {
 							error.context.itemIndex = itemIndex;
-							throw error;
+							throw new NodeApiError(this.getNode(), error, { itemIndex });
 						}
 						throw new NodeOperationError(this.getNode(), error, {
 							itemIndex,

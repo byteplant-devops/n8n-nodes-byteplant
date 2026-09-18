@@ -9,8 +9,12 @@ export class ByteplantPhoneValidatorApi implements ICredentialType {
 	name = 'byteplantPhoneValidatorApi';
 	displayName = 'Byteplant Phone Validator API';
 
-	// TODO: add the correct documentation link
-	documentationUrl = 'https://www.phone-validator.net/api.html';
+	documentationUrl = 'https://www.byteplant.com/phone-validator/api.html';
+
+	icon = {
+		light: 'file:../nodes/ByteplantPhoneValidator/byteplant-phone-validator.png',
+		dark: 'file:../nodes/ByteplantPhoneValidator/byteplant-phone-validator.png',
+	} as const;
 
 	properties: INodeProperties[] = [
 		{
