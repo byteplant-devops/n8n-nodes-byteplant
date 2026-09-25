@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-byteplant",
-	"version": "0.1.5",
+	"version": "0.2.0",
 	"description": "Validate addresses, phone numbers and email addresses - with unparalleled precision in 240+ countries world-wide.",
 	"keywords": [
 		"n8n",
@@ -48,9 +48,7 @@
 			"dist/credentials/ByteplantPhoneValidatorApi.credentials.js"
 		],
 		"nodes": [
-			"dist/nodes/ByteplantAddressValidator/ByteplantAddressValidator.node.js",
-			"dist/nodes/ByteplantEmailValidator/ByteplantEmailValidator.node.js",
-			"dist/nodes/ByteplantPhoneValidator/ByteplantPhoneValidator.node.js"
+			"dist/nodes/Byteplant/Byteplant.node.js"
 		]
 	},
 	"devDependencies": {

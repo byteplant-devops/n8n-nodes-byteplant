@@ -1,6 +1,6 @@
-import { INodeProperties } from 'n8n-workflow';
+import type { INodeProperties } from 'n8n-workflow';
 
-export const commonFields: Record<string, INodeProperties> = {
+export const commonFields = {
 	Timeout: {
 		displayName: 'Timeout',
 		name: 'Timeout',
@@ -12,5 +12,5 @@ export const commonFields: Record<string, INodeProperties> = {
 			maxValue: 300,
 			minValue: 5,
 		},
-	},
+	} satisfies INodeProperties,
 };

@@ -12,8 +12,8 @@ export class ByteplantPhoneValidatorApi implements ICredentialType {
 	documentationUrl = 'https://www.byteplant.com/phone-validator/api.html';
 
 	icon = {
-		light: 'file:../nodes/ByteplantPhoneValidator/byteplant-phone-validator.png',
-		dark: 'file:../nodes/ByteplantPhoneValidator/byteplant-phone-validator.png',
+		light: 'file:../nodes/Byteplant/byteplant-phone-validator.png',
+		dark: 'file:../nodes/Byteplant/byteplant-phone-validator.png',
 	} as const;
 
 	properties: INodeProperties[] = [
@@ -49,14 +49,6 @@ export class ByteplantPhoneValidatorApi implements ICredentialType {
 			json: true,
 		},
 		rules: [
-			{
-				type: 'responseSuccessBody',
-				properties: {
-					key: 'status',
-					value: 'VALID',
-					message: 'API key is valid',
-				},
-			},
 			{
 				type: 'responseSuccessBody',
 				properties: {

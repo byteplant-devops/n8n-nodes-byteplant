@@ -12,10 +12,9 @@ export class ByteplantAddressValidatorApi implements ICredentialType {
 	documentationUrl = 'https://www.byteplant.com/address-validator/api.html';
 
 	icon = {
-		light: 'file:../nodes/ByteplantAddressValidator/byteplant-address-validator.png',
-		dark: 'file:../nodes/ByteplantAddressValidator/byteplant-address-validator.png',
+		light: 'file:../nodes/Byteplant/byteplant-address-validator.png',
+		dark: 'file:../nodes/Byteplant/byteplant-address-validator.png',
 	} as const;
-
 
 	properties: INodeProperties[] = [
 		{
@@ -45,20 +44,12 @@ export class ByteplantAddressValidatorApi implements ICredentialType {
 			baseURL: 'https://api.address-validator.net',
 			url: '/api/verify',
 			qs: {
-				StreetAddress: "test", 
-				CountryCode: "DE"
+				StreetAddress: 'test',
+				CountryCode: 'DE',
 			},
 			json: true,
 		},
 		rules: [
-			{
-				type: 'responseSuccessBody',
-				properties: {
-					key: 'status',
-					value: 'VALID',
-					message: 'API key is valid',
-				},
-			},
 			{
 				type: 'responseSuccessBody',
 				properties: {

@@ -12,8 +12,8 @@ export class ByteplantEmailValidatorApi implements ICredentialType {
 	documentationUrl = 'https://www.byteplant.com/email-validator/api.html';
 
 	icon = {
-		light: 'file:../nodes/ByteplantEmailValidator/byteplant-email-validator.png',
-		dark: 'file:../nodes/ByteplantEmailValidator/byteplant-email-validator.png',
+		light: 'file:../nodes/Byteplant/byteplant-email-validator.png',
+		dark: 'file:../nodes/Byteplant/byteplant-email-validator.png',
 	} as const;
 
 	properties: INodeProperties[] = [

@@ -1,0 +1,26 @@
+{
+	"node": "n8n-nodes-byteplant.byteplant",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Data & Storage", "Utility"],
+	"alias": [
+		"Email Validator",
+		"Phone Validator",
+		"Address Validator",
+		"Email Verification",
+		"Phone Verification",
+		"Address Verification",
+		"Validate",
+		"Verify",
+		"Email",
+		"Phone",
+		"Address"
+	],
+	"resources": {
+		"primaryDocumentation": [
+			{
+				"url": "https://github.com/byteplant-devops/n8n-nodes-byteplant/blob/main/README.md"
+			}
+		]
+	}
+}
